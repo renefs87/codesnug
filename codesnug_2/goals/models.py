@@ -1,6 +1,6 @@
 from django.db import models
 
-from codesnug_2.users.models import CodesnugUser
+from codesnug_2.auth.models import CodesnugUser
 
 
 class Workspace(models.Model):
