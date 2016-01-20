@@ -1,5 +1,7 @@
 # Codesnug readme
 
+[![Build Status](https://travis-ci.org/renefs87/codesnug.svg?branch=master)](https://travis-ci.org/renefs87/codesnug)
+
 Codesnug is an application which purpose is the storage and categorization of code to access it later.
 
 ## Requirements

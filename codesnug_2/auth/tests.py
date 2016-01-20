@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 # Create your tests here.
-from codesnug_2.users.models import CodesnugUser
+from codesnug_2.auth.models import CodesnugUser
 
 
 class UserViewsTestCase(TestCase):
@@ -20,7 +20,7 @@ class UserViewsTestCase(TestCase):
 # Create your tests here.
 class CodesnugUserModelTestCase(TestCase):
     def test_add_user(self):
-        CodesnugUser.objects.create_user('user1', 'user1@test.com', '1111')
-        CodesnugUser.objects.create_user('user2', 'user2@test.com', '1111')
+        CodesnugUser.objects.create_user('user1@test.com', '1111')
+        CodesnugUser.objects.create_user('user2@test.com', '1111')
 
         self.assertEqual(CodesnugUser.objects.all().count(), 2)

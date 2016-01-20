@@ -1,0 +1,16 @@
+language: python
+python:
+  - "2.7"
+
+services: postgresql
+
+install:
+  - pip install -r ./pip-requirements.txt
+  - psql -c "CREATE DATABASE codesnug;" -U postgres
+
+before_script:
+  - mv ./codesnug_2/ci_settings.py.sample ./codesnug_2/settings.py
+  - python manage.py migrate
+
+script:
+  - python manage.py test
