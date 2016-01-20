@@ -5,8 +5,8 @@ python:
 services: postgresql
 
 install:
-  - pip install -r ./pip-requirements.txt
-  - psql -c "CREATE DATABASE codesnug;" -U postgres
+  - pip install -r pip-requirements.txt
+  - psql -c "CREATE DATABASE codesnug2;" -U postgres
 
 before_script:
   - mv ./codesnug_2/ci_settings.py.sample ./codesnug_2/settings.py
