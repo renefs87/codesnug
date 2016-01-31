@@ -10,6 +10,7 @@ install:
 
 before_script:
   - mv ./codesnug_2/ci_settings.py.sample ./codesnug_2/settings.py
+  - python manage.py makemigrations
   - python manage.py migrate
 
 script:

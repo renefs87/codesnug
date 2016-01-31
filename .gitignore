@@ -64,3 +64,4 @@ settings.py
 settings.py.old
 
 db.sqlite3
+*migrations/
