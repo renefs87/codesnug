@@ -1,5 +1,6 @@
 import hashlib
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.utils.encoding import python_2_unicode_compatible
@@ -197,3 +198,35 @@ def set_initial_user_names(request, user, sociallogin=None, **kwargs):
 
     user.guess_display_name()
     user.save()
+
+
+class CodesnugUserGroupManager(models.Manager):
+    def create_user_group(self, title, owner, description=''):
+
+        if title is None or title is '':
+            raise ValidationError('Usergroup title must be set')
+        if owner is None:
+            raise ValidationError('Owner must be set')
+
+        usergroup = self.create(title=title, owner=owner)
+        usergroup.description = description
+        return usergroup
+
+
+class CodesnugUserGroup(models.Model):
+    title = models.CharField(max_length=200)
+    owner = models.ForeignKey(CodesnugUser, related_name='owned_groups', null=True)
+    description = models.TextField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    users = models.ManyToManyField(CodesnugUser, blank=True, null=True)
+
+    objects = CodesnugUserGroupManager()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(CodesnugUserGroup, self).save(*args, **kwargs)
+
+    class Meta:
+        unique_together = (("title", "owner"),)
+        ordering = ('created_at', )

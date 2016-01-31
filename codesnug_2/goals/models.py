@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from codesnug_2.auth.models import CodesnugUser
-from codesnug_2.settings import WORKSPACE_PERMISSIONS, LANGUAGE_CHOICES
+from codesnug_2.goals.constants import WORKSPACE_PERMISSIONS, LANGUAGE_CHOICES
 
 
 class Tag(models.Model):
@@ -45,7 +45,7 @@ class Goal(models.Model):
         ordering = ('created_at', )
 
     def __unicode__(self):
-        return self.uuid.__unicode__()
+        return self.id
 
     def get_absolute_url(self):
         url = reverse("goal_detail", args=[str(self.id), str(self.owner.username)])
@@ -59,7 +59,7 @@ class BaseSnippet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return self.id.__unicode__()
+        return self.id
 
     class Meta:
         abstract = True
