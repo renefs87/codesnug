@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from codesnug_2.auth.models import CodesnugUser
+from codesnug_2.auth.models import CodesnugUser, CodesnugUserGroup
 from codesnug_2.goals.constants import WORKSPACE_PERMISSIONS, LANGUAGE_CHOICES
 
 
@@ -78,3 +78,13 @@ class Version(BaseSnippet):
 
     class Meta:
         unique_together = (("snippet", "version_number"),)
+
+
+class WorkspacePermissions(models.Model):
+
+    codesnug_user_group = models.ForeignKey(CodesnugUserGroup, related_name='codesnug_usergroups_permissions')
+    workspace = models.ForeignKey(Workspace, related_name='codesnug_usergroups_permissions')
+    permission = models.IntegerField(max_length=3, choices=WORKSPACE_PERMISSIONS)
+
+    class Meta:
+        unique_together = (("codesnug_user_group", "workspace"),)
